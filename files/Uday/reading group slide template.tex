@@ -1,0 +1,207 @@
+\documentclass[cjk]{beamer}
+% \documentclass[handout]{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,positioning,arrows}
+\usepackage{graphicx,wrapfig}
+
+\defbeamertemplate*{footline}{}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\beamertemplateshadingbackground{red!10}{blue!10}
+
+\addtobeamertemplate{frametitle}{}{%
+\begin{tikzpicture}[remember picture,overlay] 
+\node[anchor=north east,xshift=2pt,yshift=0pt] at (current page.north east)
+{\includegraphics[height=0.35cm]{michiganrosslogo.pdf}}; 
+\end{tikzpicture}}
+
+\newcommand{\stick}{
+\draw[thick] (0,0) circle [radius=10pt];
+\draw[thick] (0,-0.35) -- (0,-1.5); 
+\draw[thick] (0,-1.5) -- (-0.5,-2.5);
+\draw[thick] (0,-1.5) -- (0.5,-2.5);
+\draw[thick] (0,-0.8) -- (0.6,-0.6);
+\draw[thick] (0,-0.8) -- (-0.6,-0.6);
+}
+
+\newcommand{\drawdemandcurve}[1]
+{\draw[->] (0,0) -- (10,0);
+\draw[->] (0,0) -- (0,5);
+\draw (10,0.5) node{Quantity};
+\draw (0,5.5) node{Price};
+\draw[thick, color=#1] plot [smooth] coordinates { (0,4.8) (4,3) (7,2) (10,1.5) };
+}
+
+\renewcommand{\note}[1]{\emph{\small Note: #1}}
+
+\begin{document}
+
+\frame{
+
+\frametitle{Main Point of the Paper}
+
+\begin{itemize}
+\item What is the main point of the paper?
+
+\bigskip
+\note{It's often harder than one may imagine to try and distill the main point of a paper. Another way to phrase this is ``What is the most important thing I learned from this paper?" The answer to the latter question is sometimes different from what the authors say the main point of the paper is.}
+
+\bigskip
+\begin{enumerate}[(a)]
+\item Why is this an interesting or important idea? 
+
+\bigskip
+\note{The ``why do we care" question. Why are {\bf you} interested in this paper?}
+
+
+\bigskip
+\item What has previous work done in this area? What is the new contribution of this paper?
+
+\bigskip
+\note{May spill over to another slide by now.}
+\end{enumerate}
+
+\end{itemize}
+
+}
+
+\frame{
+
+\frametitle{Setting}
+
+\begin{itemize}
+\item If theory paper, what's the main intuition? 
+
+\bigskip
+\note{Can you identify the main friction that leads to the results? Can you briefly explain the intuition? Is it a good model for the phenomenon being studied (does it capture what you think are the first-order effects)?}
+
+\bigskip
+\item If empirical paper, what is the setting? 
+
+\bigskip
+\note{(1) Reduced form empirical: Why is this a good setting for the test? What is the main identification assumption? Is the exclusion restriction likely to hold? External validity? \\
+
+(2) Structural papers, of course, have some of both theory and empirics, so you'll have to do a little more work here. What are the main structural parameters being estimated? Do they relate to preferences/costs/technology/something else? Why is a structural model useful in this context?}
+
+\end{itemize}
+
+}
+
+
+\frame{
+
+\frametitle{Method}
+
+\begin{itemize}
+
+\item What is unique/clever about the method or setting? 
+
+\bigskip
+\emph{Only use this slide if there is something you learned from this paper that carries over broadly in terms of a method you can use later in future work. Otherwise, skip and move on.}
+
+\end{itemize}
+
+}
+
+
+\frame{
+
+\frametitle{Main Result}
+
+\begin{itemize}
+\item If theory paper, what is the main proposition?
+
+
+\bigskip
+\item If empirical, what is the main table? Show the key coefficients. 
+
+\bigskip
+\note{\begin{enumerate}
+\item At most two tables/propositions here.
+
+\item Do the main propositions/tables tell us the story that was promised? Or do they not quite get there? 
+
+\end{enumerate}}
+
+\end{itemize}
+
+}
+
+\frame{
+
+\frametitle{Discussion/Critique}
+
+\begin{itemize}
+\item What is good about what the authors did?
+
+\bigskip
+\note{E.g., Answered a really important question / Clean, elegant model / Well-designed structural model / Found a good exogenous shock.}
+
+\bigskip
+\item What can be improved on?
+
+\bigskip
+\note{E.g., Ask a more interesting question / Endogenize some assumption / Use the data in some different way.}
+
+\end{itemize}
+
+}
+
+\frame{
+
+\frametitle{Open Questions in this Area}
+
+\begin{itemize}
+\item What is worth exploring going forward in this area? Does the paper open the door to further research?
+
+\bigskip
+\note{If you could design a ``dream result" in this area, what would that be?}
+
+\end{itemize}
+
+}
+
+\frame{
+
+\frametitle{Bonus Slide}
+
+\begin{itemize}
+\item Not for reading group use, but I just noticed that my template file for slides has some basic tikz objects pre-defined. 
+
+\bigskip
+\begin{tikzpicture}[thick,scale=0.9]
+
+\drawdemandcurve{red}
+
+\begin{scope}[shift={(3,3)},scale=0.5]
+{\color{blue} \stick}
+\end{scope}
+
+\begin{scope}[shift={(6,4.5)},scale=0.75]
+{\color{green!60!black} \stick}
+\end{scope}
+
+\end{tikzpicture}
+
+\end{itemize}
+
+}
+
+
+\end{document}
+
