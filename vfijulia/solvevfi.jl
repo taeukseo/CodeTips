@@ -6,16 +6,15 @@ using Printf
 include("fcnsimpleVfi.jl")
 
 # initialize
-vf      = zeros(nk, nz);
-optk    = zeros(nk, nz);
+global vf      = zeros(nk, nz);
+global optk    = zeros(nk, nz);
 kp3d = permutedims(repeat(kp, 1, nk, nz),[2,3,1]);
 nodes = (k, z);
 
-vf, optk, errval, errpol = valfun(vf, optk, cf, nodes, kp, kp3d, k, z, nkp, nk, nz, β)
-
 # Precision
-errval  = 10.0^6;
-errpol = 10.0^6;
+global errval  = 10.0^6;
+global errpol = 10.0^6;
+global iter = 1;
 tolvf   = 10.0^(-6);
 tolpol  = 10.0^(-6);
 
@@ -29,8 +28,8 @@ vfisol = "vfisol.jld"
 
 @printf("VFI started: Please wait");
 # first round
-vf, optk, errval, errpol = valfun(vf, optk, cf, nodes, kp, kp3d, k, z, nkp, nk, nz, β)
-iter = 1;
+global vf, optk, errval, errpol = valfun(vf, optk, cf, nodes, kp, kp3d, z, nkp, nk, nz, beta)
+
 @printf(".");
 str =   @sprintf("%.3f, %.5f, %.0f", errval, errpol, iter)
 open(vfilog, "a") do io;
@@ -39,8 +38,8 @@ end
 
 # iterate
 while errval > tolvf;
-    vf, optk, errval, errpol = valfun(vf, optk, cf, nodes, kp, kp3d, k, z, nkp, nk, nz, β)
-    iter = iter + 1;
+    global vf, optk, errval, errpol = valfun(vf, optk, cf, nodes, kp, kp3d, z, nkp, nk, nz, beta)
+    global iter = iter + 1;
     @printf(".");
     str =   @sprintf("%.3f, %.5f, %.0f", errval, errpol, iter)
     print("\n")

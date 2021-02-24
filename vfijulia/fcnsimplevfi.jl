@@ -2,7 +2,7 @@
 
 using Interpolations
 
-function valfuninterp!(vf_f1, nodes_f1, kp_f1, z_f1, nkp_f1, nz_f1, β_f1)
+function valfuninterp!(vf_f1, nodes_f1, kp_f1, z_f1, nkp_f1, nz_f1, beta_f1)
 
         itp = interpolate(nodes_f1, vf_f1, Gridded(Linear()));
         vfaltitp_f1 = zeros(nkp_f1, nz_f1);
@@ -10,14 +10,14 @@ function valfuninterp!(vf_f1, nodes_f1, kp_f1, z_f1, nkp_f1, nz_f1, β_f1)
         for jj = 1:nz_f1, ii = 1:nkp_f1
                 vfaltitp_f1[ii,jj] = itp[kp_f1[ii], z_f1[jj]];
         end 
-        vfaltitp_f1 = β_f1*vfaltitp_f1';        
+        vfaltitp_f1 = beta_f1*vfaltitp_f1';        
         return vfaltitp_f1;       
 end 
 
 
-function valfun(vf_f2, optk_f2, cf_f2, nodes_f2, kp_f2, kp3d_f2, k_f2, z_f2, nkp_f2, nk_f2, nz_f2, β_f2)
+function valfun(vf_f2, optk_f2, cf_f2, nodes_f2, kp_f2, kp3d_f2, z_f2, nkp_f2, nk_f2, nz_f2, beta_f2)
 
-vfnextinterp2f_f2 = valfuninterp!(vf_f2, nodes_f2, kp_f2, z_f2, nkp_f2, nz_f2, β_f2);
+vfnextinterp2f_f2 = valfuninterp!(vf_f2, nodes_f2, kp_f2, z_f2, nkp_f2, nz_f2, beta_f2);
 
 vfinterp_f2 = zeros(nk_f2, nz_f2, nkp_f2);
 
